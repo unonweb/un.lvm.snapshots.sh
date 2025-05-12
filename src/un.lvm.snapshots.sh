@@ -1,5 +1,5 @@
 #!/bin/bash
-# test
+
 # Script location variables
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE}")"
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE}")")
@@ -13,39 +13,15 @@ GREEN="${ESC}[32m"
 BLUE="${ESC}[34m"
 UNDERLINE="${ESC}[4m"
 
+# IMPORTS
+source "${SCRIPT_DIR}/lib/printHighestNumFromArr.sh"
+source "${SCRIPT_DIR}/lib/trim.sh"
+
 ORIGIN=""
 MOUNT_POINT_SNAP=""
 MOUNT_POINT_ORIGIN=""
 DEV_PATH_VG="/dev/os"
 declare -A IS_MOUNTED=()
-
-function printHighestNumFromArr() {
-  local -n numbers=$1 # must be an array
-  local highest
-  local number
-
-  # Initialize a variable to hold the highest number
-  highest=${numbers[0]}  # Start with the first element
-
-  # Loop through the array
-  for number in "${numbers[@]}"; do
-    if (( number > highest )); then
-      highest=$number  # Update highest if the current number is greater
-    fi
-  done
-  printf '%s' "${highest}"
-}
-
-function trim() {
-  local str="$1"
-
-  # remove leading whitespace characters
-  str="${str#"${str%%[![:space:]]*}"}"
-  # remove trailing whitespace characters
-  str="${str%"${str##*[![:space:]]}"}"
-
-  printf '%s' "$str"
-}
 
 function getSnapshots() {
   # CAN'T CALL THIS FROM ANOTHER FUNCTION IF THE NAMEREF FROM THE OTHER FUNCTION ITSELF IS A LOCAL VARIABLE
@@ -118,9 +94,9 @@ function selectSnapshot() {
 
 }
 
-function printNameWithOldestDate() {
-  local prefixToRemove=$1
-  local -n stringsWithUnixSec=$2
+function printNameWithOldestDate() { # ${prefix} arrayOfStringsWithUnixSec
+  local prefixToRemove=${1}
+  local -n stringsWithUnixSec=${2}
   # Initialize variables to track the oldest date and corresponding string
   local unixSecCurrent=""
   local nameWithOldestDate=""
