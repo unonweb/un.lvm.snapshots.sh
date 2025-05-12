@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script location variables
+# BOILERPLATE
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE}")"
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE}")")
 SCRIPT_NAME=$(basename -- "$(readlink -f "${BASH_SOURCE}")")
@@ -17,6 +17,7 @@ UNDERLINE="${ESC}[4m"
 source "${SCRIPT_DIR}/lib/printHighestNumFromArr.sh"
 source "${SCRIPT_DIR}/lib/trim.sh"
 
+# CONSTANTS
 ORIGIN=""
 MOUNT_POINT_SNAP=""
 MOUNT_POINT_ORIGIN=""
