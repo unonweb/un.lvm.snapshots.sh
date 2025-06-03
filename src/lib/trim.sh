@@ -1,5 +1,5 @@
-function trim() {
-  local str="$1"
+function trim() { # ${str}
+  local str="${1}"
 
   # remove leading whitespace characters
   str="${str#"${str%%[![:space:]]*}"}"
